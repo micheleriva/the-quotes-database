@@ -1,0 +1,28 @@
+{
+  "name": "nodejselastic",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "pm2-runtime start ./src/main.js --name node_app",
+    "stop": "pm2-runtime stop node_app "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/micheleriva/fulltext-search-with-node-and-elasticsearch-on-docker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/micheleriva/fulltext-search-with-node-and-elasticsearch-on-docker/issues"
+  },
+  "homepage": "https://github.com/micheleriva/fulltext-search-with-node-and-elasticsearch-on-docker#readme",
+  "dependencies": {
+    "@elastic/elasticsearch": "^7.3.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1"
+  }
+}
