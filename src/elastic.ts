@@ -1,26 +1,26 @@
-const { Client } = require("@elastic/elasticsearch");
-                   require("dotenv").config();
+import { Client } from '@elastic/elasticsearch'
+require('dotenv').config()
 
-const elasticUrl = process.env.ELASTIC_URL || "http://localhost:9200";
-const esclient   = new Client({ node: elasticUrl });
-const index      = "quotes";
-const type       = "quotes";
+export const elasticUrl = process.env.ELASTIC_URL || 'http://localhost:9200'
+export const esclient   = new Client({ node: elasticUrl })
+export const index      = 'quotes'
+export const type       = 'quotes'
 
 /**
  * @function createIndex
- * @returns {void}
+ * @returns {Promise<void>}
  * @description Creates an index in ElasticSearch.
  */
 
-async function createIndex(index) {
+export async function createIndex(index: string): Promise<void> {
   try {
 
-    await esclient.indices.create({ index });
-    console.log(`Created index ${index}`);
+    await esclient.indices.create({ index })
+    console.log(`Created index ${index}`)
 
   } catch (err) {
 
-    console.error(`An error occurred while creating the index ${index}:`);
+    console.error(`An error occurred while creating the index ${index}:`)
     console.error(err);
 
   }
@@ -28,11 +28,11 @@ async function createIndex(index) {
 
 /**
  * @function setQuotesMapping,
- * @returns {void}
+ * @returns {Promise<void>}
  * @description Sets the quotes mapping to the database.
  */
 
-async function setQuotesMapping () {
+export async function setQuotesMapping (): Promise<void> {
   try {
     const schema = {
       quote: {
@@ -51,11 +51,10 @@ async function setQuotesMapping () {
         properties: schema 
       } 
     })
-    
-    console.log("Quotes mapping created successfully");
+    console.log('💯 Quotes mapping created successfully')
   
   } catch (err) {
-    console.error("An error occurred while setting the quotes mapping:");
+    console.error('An error occurred while setting the quotes mapping:')
     console.error(err);
   }
 }
@@ -66,7 +65,7 @@ async function setQuotesMapping () {
  * @description Checks if the client is connected to ElasticSearch
  */
 
-function checkConnection() {
+export function checkConnection(): Promise<boolean> {
   return new Promise(async (resolve) => {
 
     console.log("Checking connection to ElasticSearch...");
@@ -89,12 +88,3 @@ function checkConnection() {
 
   });
 }
-
-module.exports = {
-  esclient,
-  setQuotesMapping,
-  checkConnection,
-  createIndex,
-  index,
-  type
-};
